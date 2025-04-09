@@ -1,0 +1,27 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 112233
+      MYSQL_DATABASE: vps
+      MYSQL_USER: sachith
+      MYSQL_PASSWORD: 112233
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
